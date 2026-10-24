@@ -638,3 +638,13 @@ ul, ol { list-style: none; }
 .journey-intro__inner { position: static; height: auto; display: block; text-align: center; padding-top: var(--header-height, 80px); }
 .journey-intro__inner .journey-row__text { justify-self: center; margin: 0 auto; max-width: 560px; }
 
+
+/* Buy Now on honey cards */
+.buy-now {
+  display: inline-flex; align-items: center; gap: .5rem; margin-top: 1.4rem;
+  min-height: 48px; padding: .75rem 1.4rem; border-radius: 999px; text-decoration: none; font-weight: 600;
+  background: var(--honey-gold); color: #1d1608; transition: gap .2s, filter .2s;
+  position: relative; z-index: 6;
+}
+.buy-now:hover { gap: .85rem; filter: brightness(1.08); }
+@media (max-width: 768px) { .buy-now { margin-top: .9rem; } }
