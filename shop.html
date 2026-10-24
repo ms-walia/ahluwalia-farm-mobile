@@ -86,7 +86,7 @@
           <button class="size-card__btn" data-add='${JSON.stringify({ id: V + '-' + size, name: h.name, size, price })}'>Add to cart</button>
         </div>
       </article>`).join('');
-    const SCALE = { '250g': 0.8, '500g': 0.9, '1kg': 1 };
+    const SCALE = { '250g': 0.7, '500g': 0.82, '1kg': 0.92 };
     document.querySelectorAll('[data-jar]').forEach((el) => {
       const size = el.dataset.jar;
       mountJar(el, { variety: V, size, scale: SCALE[size] })
