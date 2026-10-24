@@ -56,7 +56,7 @@ if (section && canvas && slots.length > 1 && !reduceMotion && webglAvailable()) 
 
 async function init() {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, window.matchMedia('(pointer: coarse)').matches ? 1.5 : 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, window.matchMedia('(pointer: coarse)').matches ? 2 : 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.NoToneMapping;   // keep label colours true to the artwork
   renderer.setClearColor(0x000000, 0);
@@ -65,10 +65,10 @@ async function init() {
   const pmrem = new THREE.PMREMGenerator(renderer);
   scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
 
-  const key = new THREE.DirectionalLight(0xfff3e0, 1.25);
+  const key = new THREE.DirectionalLight(0xfff3e0, 0.8);
   key.position.set(-2, 3, 4);
   scene.add(key);
-  const rim = new THREE.DirectionalLight(0xffd59a, 0.9);
+  const rim = new THREE.DirectionalLight(0xffd59a, 0.55);
   rim.position.set(3, 2, -3);
   scene.add(rim);
 
@@ -265,12 +265,12 @@ async function init() {
     if (!m) return;
     if (o.name.startsWith('Label') || m.name === 'Label') {
       labelMat = m;
-      m.roughness = 0.38;
-      m.clearcoat = 0.12;
-      m.clearcoatRoughness = 0.2;
-      m.envMapIntensity = 0.5;
+      m.roughness = 0.9;                     // matte paper: no glossy glare over the text
+      m.clearcoat = 0;                       // no shiny layer
+      m.clearcoatRoughness = 1;
+      m.envMapIntensity = 0.25;              // soft reflections only
       m.emissive = new THREE.Color(0xffffff);
-      m.emissiveIntensity = 0.12;            // keeps the printed colours bright and crisp
+      m.emissiveIntensity = 0.62;            // label is lit from within so shadows can't hide the print
       // draw the label after the glass and pull it onto the outer surface so it reads as stuck on
       m.polygonOffset = true;
       m.polygonOffsetFactor = -2;
